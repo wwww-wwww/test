@@ -13,6 +13,8 @@ on:
 
 permissions:
   contents: read
+  id-token: write
+  pages: write
 
 jobs:
   build:
