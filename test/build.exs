@@ -1,10 +1,10 @@
-defmodule TestWeb.BuildTest do
-  use TestWeb.ConnCase, async: true
+defmodule JpegxlWeb.BuildTest do
+  use JpegxlWeb.ConnCase, async: true
 
   @outdir "out"
 
   def generate_html_for_route(conn, route_path) do
-    IO.inspect(route_path)
+    File.cp_r("priv/static", @outdir)
 
     resp =
       get(conn, route_path)
@@ -25,12 +25,12 @@ defmodule TestWeb.BuildTest do
     File.close(file)
   end
 
-  @routes [
-    "/",
-  ]
-
   test "GET /", %{conn: conn} do
-    @routes
+    (["/"] ++
+       (File.ls!("lib/templates/page")
+        |> Enum.map(&String.slice(&1, 0..-11))
+        |> Enum.filter(&(&1 != "index"))
+        |> Enum.map(&("/" <> &1))))
     |> Enum.each(&generate_html_for_route(conn, &1))
   end
 end

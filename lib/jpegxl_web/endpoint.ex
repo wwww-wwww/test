@@ -1,5 +1,5 @@
-defmodule TestWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :test
+defmodule JpegxlWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :jpegxl
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -21,9 +21,9 @@ defmodule TestWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :test,
+    from: :jpegxl,
     gzip: false,
-    only: TestWeb.static_paths()
+    only: JpegxlWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -34,7 +34,6 @@ defmodule TestWeb.Endpoint do
   end
 
   plug Plug.RequestId
-  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
@@ -44,5 +43,5 @@ defmodule TestWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug TestWeb.Router
+  plug JpegxlWeb.Router
 end

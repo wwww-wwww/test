@@ -7,18 +7,18 @@
 # General application configuration
 import Config
 
-config :test,
+config :jpegxl,
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :test, TestWeb.Endpoint,
+config :jpegxl, JpegxlWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: TestWeb.ErrorHTML, json: TestWeb.ErrorJSON],
+    formats: [html: JpegxlWeb.ErrorHTML, json: JpegxlWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Test.PubSub,
+  pubsub_server: Jpegxl.PubSub,
   live_view: [signing_salt: "XddBa1MU"]
 
 # Configure esbuild (the version is required)
@@ -29,6 +29,13 @@ config :esbuild,
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+config :dart_sass,
+  version: "1.77.2",
+  default: [
+    args: ~w(css/app.scss ../priv/static/assets/app.css),
+    cd: Path.expand("../assets", __DIR__)
   ]
 
 # Configures Elixir's Logger

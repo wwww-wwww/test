@@ -1,4 +1,4 @@
-defmodule Test.Application do
+defmodule Jpegxl.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,18 +8,13 @@ defmodule Test.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      TestWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:test, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: Test.PubSub},
-      # Start a worker by calling: Test.Worker.start_link(arg)
-      # {Test.Worker, arg},
-      # Start to serve requests, typically the last entry
-      TestWeb.Endpoint
+      {Phoenix.PubSub, name: Jpegxl.PubSub},
+      JpegxlWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Test.Supervisor]
+    opts = [strategy: :one_for_one, name: Jpegxl.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -27,7 +22,7 @@ defmodule Test.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    TestWeb.Endpoint.config_change(changed, removed)
+    JpegxlWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

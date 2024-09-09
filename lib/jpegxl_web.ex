@@ -1,12 +1,12 @@
-defmodule TestWeb do
+defmodule JpegxlWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use TestWeb, :controller
-      use TestWeb, :html
+      use JpegxlWeb, :controller
+      use JpegxlWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -30,38 +30,15 @@ defmodule TestWeb do
     end
   end
 
-  def channel do
-    quote do
-      use Phoenix.Channel
-    end
-  end
-
   def controller do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: TestWeb.Layouts]
+        layouts: [html: JpegxlWeb.Layouts]
 
       import Plug.Conn
 
       unquote(verified_routes())
-    end
-  end
-
-  def live_view do
-    quote do
-      use Phoenix.LiveView,
-        layout: {TestWeb.Layouts, :app}
-
-      unquote(html_helpers())
-    end
-  end
-
-  def live_component do
-    quote do
-      use Phoenix.LiveComponent
-
-      unquote(html_helpers())
     end
   end
 
@@ -83,7 +60,7 @@ defmodule TestWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import TestWeb.CoreComponents
+      import Phoenix.View
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
@@ -96,9 +73,9 @@ defmodule TestWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: TestWeb.Endpoint,
-        router: TestWeb.Router,
-        statics: TestWeb.static_paths()
+        endpoint: JpegxlWeb.Endpoint,
+        router: JpegxlWeb.Router,
+        statics: JpegxlWeb.static_paths()
     end
   end
 
